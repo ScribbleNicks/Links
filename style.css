@@ -76,7 +76,9 @@ p {
     width: 30px;
     height: 30px;
     margin-right: 10px;
-    outline: 12px solid white;
+    stroke: white;
+    stroke-width: 4px;
+    stroke-linejoin: round;
 }
 
 /* Specific button styling for branding */

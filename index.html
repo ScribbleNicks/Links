@@ -15,7 +15,7 @@
             <img src="Pictures/profilePic.png" alt="Profile Picture" class="profile-pic">
             <h1>@ScribbleNicks</h1>
             <p>Welcome to my social links! Connect with me here:</p>
-            <p id="liveStatus"></p>
+            <p id="liveStatus">Not live...</p>
         </div>
 
         <div class="links-section">
@@ -40,8 +40,6 @@
         function onlive() {
             document.getElementById("liveStatus").innerHTML = "I'm live on YouTube!";
         }
-
-        /* REST OF THE CODE */
 
         fetch('https://www.youtube.com/channel/' + channelid).then(function (response) {
             return response.text();
