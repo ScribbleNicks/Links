@@ -1,4 +1,4 @@
-# Open LinkTree: an Open-Source Link in Bio Alternative
+# Open: an Open-Source Link in Bio Alternative
 
 ![Open LinkTree Logo](https://raw.githubusercontent.com/hlevenberg/open-linktree/main/public/images/logo.png)
 
