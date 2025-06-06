@@ -15,22 +15,43 @@
             <img src="Pictures/profilePic.png" alt="Profile Picture" class="profile-pic">
             <h1>@YourUsername</h1>
             <p>Welcome to my social links! Connect with me here:</p>
+            <p id="liveStatus"></p>
         </div>
 
         <div class="links-section">
-            <a href="https://www.twitch.tv/yourtwitchusername" target="_blank" class="link-button twitch">
-                <img src="https://www.svgrepo.com/show/512316/twitch.svg" alt="Twitch Icon" class="button-icon">
+            <a href="https://www.twitch.tv/scribblenicks" target="_blank" class="link-button twitch">
+                <img src="https://www.svgrepo.com/show/448251/twitch.svg" alt="Twitch Icon" class="button-icon">
                 Twitch
             </a>
             <a href="https://www.youtube.com/youryoutubechannel" target="_blank" class="link-button youtube">
-                <img src="https://www.svgrepo.com/show/512398/youtube.svg" alt="YouTube Icon" class="button-icon">
+                <img src="https://www.svgrepo.com/show/448261/youtube.svg" alt="YouTube Icon" class="button-icon">
                 YouTube
             </a>
             <a href="https://www.tiktok.com/@yourtiktokusername" target="_blank" class="link-button tiktok">
-                <img src="https://www.svgrepo.com/show/512361/tiktok.svg" alt="TikTok Icon" class="button-icon">
+                <img src="https://www.svgrepo.com/show/452114/tiktok.svg" alt="TikTok Icon" class="button-icon">
                 TikTok
             </a>
             </div>
     </div>
+
+    <script>
+        var channelid = "UCv0Bs_Mr3LPGBFFT5NPP_CQ"; // REPLACE WITH YOUR CHANNEL ID
+
+        function onlive() {
+            document.getElementById("liveStatus").innerHTML = "I'm live on YouTube!";
+        }
+
+        /* REST OF THE CODE */
+
+        fetch('https://www.youtube.com/channel/' + channelid).then(function (response) {
+            return response.text();
+        }).then(function (html) {
+        if (html.includes("hqdefault_live.jpg")) {
+        onlive();
+        }
+        }).catch(function (err) {
+            console.warn('Something went wrong', err);
+        });
+    </script>
 </body>
 </html>
