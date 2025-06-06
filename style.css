@@ -64,6 +64,7 @@ p {
     font-weight: 600;
     transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    outline: 12px solid white;
 }
 
 .link-button:hover {
@@ -75,7 +76,7 @@ p {
     width: 30px;
     height: 30px;
     margin-right: 10px;
-    filter: invert(100%); /* Make SVG icons white */
+    outline: 12px solid white;
 }
 
 /* Specific button styling for branding */
