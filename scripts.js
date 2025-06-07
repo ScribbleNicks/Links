@@ -15,23 +15,6 @@ class SocialMediaButtonData {
 
 // Live Updates
 
-function getYoutubeLiveStatus() {
-    const live = false;
-
-    var channelid = "UCnB-Fhp5FQfCZNfdAvm27Qw"; // REPLACE WITH YOUR CHANNEL ID
-
-    fetch('https://www.youtube.com/channel/' + channelid).then(function (response) {
-        return response.text();
-    }).then(function (html) {
-        if (html.includes("hqdefault_live.jpg")) {
-            live = true;
-        }
-    }).catch(function (err) {
-        console.warn('Something went wrong', err);
-    });
-
-    return live;
-}
 
 // HTML Functions
 function renderProfileCard() {
