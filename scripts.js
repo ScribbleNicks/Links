@@ -9,7 +9,7 @@ class SocialMediaButtonData {
     }
 
     getIconSVG() {
-        return `<svg class="buttonIcon stickerEffect" viewBox="0 0 24 24" fill="currentColor">${this.iconSVGPath}</svg>`;
+        return `<svg class="buttonIcon stickerEffect" viewBox="0 0 24 24" fill="currentColor"><path d="${this.iconSVGPath}"></path></svg>`;
     }
 }
 
