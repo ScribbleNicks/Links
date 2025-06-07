@@ -146,7 +146,7 @@ body {
 
 @keyframes pulseSmall {
     from { transform: scale(1); }
-    to { transform: 1.05; }
+    to { transform: scale(1.05); }
 }
 
 .linksSection {
@@ -276,6 +276,10 @@ body {
 }
 
 @media (max-width: 768px) {
+    .containerWrapper {
+        padding-top: 50px;
+    }
+
     .container {
         padding: 130px 20px 20px;
     }
@@ -345,6 +349,10 @@ body {
 }
 
 @media (max-width: 480px) {
+    .containerWrapper {
+        padding-top: 40px;
+    }
+
     .container {
         padding: 110px 15px 15px;
     }
