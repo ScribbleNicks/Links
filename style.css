@@ -1,107 +1,400 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&display=swap');
+
+:root {
+    --stickerBorderColor: #fff;
+    --stickerBorderWidth: 4px;
+    --stickerShadowColor: rgba(0, 0, 0, 0.2);
+    --stickerShadowOffsetX: 4px;
+    --stickerShadowOffsetY: 4px;
+    --stickerShadowBlur: 8px;
+    --borderRadiusPrimary: 15px;
+    --borderRadiusSecondary: 50%;
+    --containerBg: #ffe4e1;
+    --textColorDark: #333;
+    --textColorLight: #fff;
+    --buttonBgDefault: #b0e0e6;
+    --buttonHoverDefault: #a0d0d6;
+    --twitchColor: #9146FF;
+    --twitchHoverColor: #7A39D9;
+    --youtubeColor: #FF0000;
+    --youtubeHoverColor: #CC0000;
+    --tiktokColor: #69C9D0;
+    --tiktokHoverColor: #58B0B7;
+    --twitterColor: #1DA1F2;
+    --twitterHoverColor: #0E8CD6;
+    --githubColor: #333;
+    --githubHoverColor: #555;
+    --linkedinColor: #0A66C2;
+    --linkedinHoverColor: #084C97;
+}
+
 body {
-    font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(to right, #4facfe, #00f2fe); /* A nice gradient background */
-    color: #fff;
+    font-family: 'Fredoka', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
+    background: linear-gradient(135deg, #fceabb, #f8b500);
+    overflow-x: hidden;
+}
+
+.containerWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
     padding: 20px;
-    box-sizing: border-box; /* Ensures padding doesn't affect overall width */
+    box-sizing: border-box;
 }
 
 .container {
-    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
-    border-radius: 15px;
-    padding: 30px;
+    background-color: var(--containerBg);
+    border-radius: var(--borderRadiusPrimary);
+    padding: 60px 30px 30px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    max-width: 600px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.stickerEffect {
+    border: var(--stickerBorderWidth) solid var(--stickerBorderColor);
+    box-shadow: var(--stickerShadowOffsetX) var(--stickerShadowOffsetY) var(--stickerShadowBlur) var(--stickerShadowColor);
+    border-radius: var(--borderRadiusPrimary);
+    box-sizing: border-box;
+}
+
+.profileCardWrapper {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    transform: translateY(-50%) rotate(-5deg);
+    z-index: 10;
+}
+
+.profileCard {
+    background-color: #84e99a;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 250px;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    max-width: 500px; /* Limit the width of the container */
+}
+
+.bannerImage {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: var(--borderRadiusPrimary);
+    margin-bottom: -40px;
+}
+
+.profilePicture {
+    width: 100px;
+    height: 100px;
+    border-radius: var(--borderRadiusSecondary);
+    object-fit: cover;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 2;
+    transform: rotate(5deg);
+    border-radius: var(--borderRadiusSecondary);
+    border: var(--stickerBorderWidth) solid var(--stickerBorderColor);
+    box-shadow: var(--stickerShadowOffsetX) var(--stickerShadowOffsetY) var(--stickerShadowBlur) var(--stickerShadowColor);
+}
+
+.username {
+    font-size: 1.8em;
+    color: var(--textColorDark);
+    margin: 5px 0;
+}
+
+.description {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.liveStatusBanner {
+    background-color: #ff6b6b;
+    color: var(--textColorLight);
+    padding: 10px 20px;
+    border-radius: var(--borderRadiusPrimary);
+    font-weight: bold;
+    text-transform: uppercase;
+    animation: pulseBig 1.5s infinite alternate;
+    position: absolute;
+    top: 9%;
+    right: 90px;
+    z-index: 15;
+}
+
+.liveStatusBanner.hidden {
+    display: none;
+}
+
+@keyframes pulseBig {
+    from { transform: scale(1.5); }
+    to { transform: scale(1.55); }
+}
+
+@keyframes pulseSmall {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
+}
+
+.linksSection {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 120px;
+}
+
+.linksSection.live-banner-active {
+    margin-top: 190px;
+}
+
+.hotLinksSection {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
     width: 100%;
 }
 
-.profile-section {
-    margin-bottom: 30px;
-}
-
-.profile-pic {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #fff;
-    margin-bottom: 15px;
-}
-
-h1 {
-    font-size: 2.2em;
-    margin-bottom: 10px;
-    font-weight: 600;
-}
-
-p {
-    font-size: 1.1em;
-    opacity: 0.9;
-}
-
-.links-section {
+.hotLinkButton {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Space between buttons */
-}
-
-.link-button {
-    display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #333;
-    color: #fff;
-    padding: 15px 25px;
-    border-radius: 10px;
+    padding: 15px;
+    aspect-ratio: 1 / 1;
     text-decoration: none;
-    font-size: 1.2em;
-    font-weight: 600;
+    color: var(--textColorLight);
+    font-weight: bold;
     transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    outline: 12px solid white;
+    background-color: var(--buttonBgDefault);
+    border-radius: var(--borderRadiusPrimary);
 }
 
-.link-button:hover {
-    transform: translateY(-5px);
-    background-color: #555;
+.hotLinkButton .buttonIcon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 5px;
+    border-radius: var(--borderRadiusPrimary);
+    border: var(--stickerBorderWidth) solid var(--stickerBorderColor);
+    box-shadow: var(--stickerShadowOffsetX) var(--stickerShadowOffsetY) var(--stickerShadowBlur) var(--stickerShadowColor);
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
-.button-icon {
+.hotLinkButton .buttonText {
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.regularLinksSection {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--textColorDark);
+    background-color: var(--buttonBgDefault);
+    padding: 12px 20px;
+    border-radius: var(--borderRadiusPrimary);
+    font-weight: bold;
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    justify-content: center;
+}
+
+.button .buttonIcon {
     width: 30px;
     height: 30px;
     margin-right: 10px;
-    stroke: white;
-    stroke-width: 4px;
-    stroke-linejoin: round;
+    border-radius: var(--borderRadiusPrimary);
+    border: var(--stickerBorderWidth) solid var(--stickerBorderColor);
+    box-shadow: var(--stickerShadowOffsetX) var(--stickerShadowOffsetY) var(--stickerShadowBlur) var(--stickerShadowColor);
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Specific button styling for branding */
-.twitch {
-    background-color: #9146FF;
+.button .buttonText {
+    flex-grow: 1;
+    text-align: left;
 }
 
-.twitch:hover {
-    background-color: #772CEB;
+.twitchButton { background-color: var(--twitchColor); color: var(--textColorLight); }
+.twitchButton:hover { background-color: var(--twitchHoverColor); }
+
+.youtubeButton { background-color: var(--youtubeColor); color: var(--textColorLight); }
+.youtubeButton:hover { background-color: var(--youtubeHoverColor); }
+
+.tiktokButton { background-color: var(--tiktokColor); color: var(--textColorLight); }
+.tiktokButton:hover { background-color: var(--tiktokHoverColor); }
+
+.twitterButton { background-color: var(--twitterColor); color: var(--textColorLight); }
+.twitterButton:hover { background-color: var(--twitterHoverColor); }
+
+.githubButton { background-color: var(--githubColor); color: var(--textColorLight); }
+.githubButton:hover { background-color: var(--githubHoverColor); }
+
+.linkedinButton { background-color: var(--linkedinColor); color: var(--textColorLight); }
+.linkedinButton:hover { background-color: var(--linkedinHoverColor); }
+
+.button:nth-child(odd):hover {
+    transform: scale(1.03) rotate(2deg);
 }
 
-.youtube {
-    background-color: #FF0000;
+.button:nth-child(even):hover {
+    transform: scale(1.03) rotate(-2deg);
 }
 
-.youtube:hover {
-    background-color: #CC0000;
+.hotLinkButton:nth-child(odd):hover {
+    transform: scale(1.05) rotate(3deg);
 }
 
-.tiktok {
-    background-color: #FE2C55;
+.hotLinkButton:nth-child(even):hover {
+    transform: scale(1.05) rotate(-3deg);
 }
 
-.tiktok:hover {
-    background-color: #D4284D;
+@media (max-width: 768px) {
+    .container {
+        padding: 50px 20px 20px;
+    }
+
+    .profileCardWrapper {
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%) rotate(-5deg);
+    }
+
+    .liveStatusBanner {
+        position: absolute;
+        z-index: 15;
+        top: 135px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        width: fit-content;
+        animation: pulseSmall 1.5s infinite alternate;
+        transform: none;
+    }
+
+    .linksSection {
+        margin-top: 150px;
+    }
+
+    .linksSection.live-banner-active {
+        margin-top: 190px;
+    }
+
+    .hotLinksSection {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+
+    .hotLinkButton {
+        padding: 10px;
+        display: flex;
+        flex-direction: column !important;
+    }
+
+    .hotLinkButton .buttonIcon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .hotLinkButton .buttonText {
+        font-size: 0.8em;
+    }
+
+    .button {
+        flex-direction: row;
+        text-align: left;
+        padding: 10px 15px;
+    }
+
+    .button .buttonIcon {
+        width: 25px;
+        height: 25px;
+        margin-right: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 40px 15px 15px;
+    }
+
+    .profileCard {
+        width: 200px;
+        padding: 10px;
+    }
+
+    .bannerImage {
+        height: 60px;
+    }
+
+    .profilePicture {
+        width: 80px;
+        height: 80px;
+    }
+
+    .username {
+        font-size: 1.5em;
+    }
+
+    .description {
+        font-size: 0.8em;
+    }
+
+    .liveStatusBanner {
+        top: 105px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        width: fit-content;
+        transform: none;
+    }
+
+    .linksSection {
+        margin-top: 130px;
+    }
+
+    .linksSection.live-banner-active {
+        margin-top: 160px;
+    }
+
+    .hotLinksSection {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+
+    .hotLinkButton {
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .hotLinkButton .buttonIcon {
+        width: 35px;
+        height: 35px;
+        margin-bottom: 3px;
+    }
+
+    .hotLinkButton .buttonText {
+        font-size: 0.7em;
+    }
 }
