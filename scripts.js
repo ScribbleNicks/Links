@@ -7,7 +7,7 @@ class SocialMediaButtonData {
         this.cssClass = cssClass;
         this.link = link;
         this.viewBox = viewBox;
-        this.hotLink = hotLink; // This line was added
+        this.hotLink = hotLink;
     }
 
     getIconSVG() {
@@ -74,13 +74,12 @@ function renderRegularLinksSection(regularLinksDataArray) {
     return `<div class="regularLinksSection">${regularLinksHtml}</div>`;
 }
 
-function renderLinksSection(hotLinksDataArray, regularLinksDataArray, isLiveBannerActive) {
+// FIX: This function now expects the already-rendered HTML strings for the sections.
+function renderLinksSection(hotLinksHtmlString, regularLinksHtmlString, isLiveBannerActive) {
     const liveBannerClass = isLiveBannerActive ? 'live-banner-active' : '';
     return `
         <div class="linksSection ${liveBannerClass}">
-            ${renderHotLinksSection(hotLinksDataArray)}
-            ${renderRegularLinksSection(regularLinksDataArray)}
-        </div>
+            ${hotLinksHtmlString}  ${regularLinksHtmlString} </div>
     `;
 }
 
@@ -93,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             return response.json();
         })
-        .then(rawJsonData => { // Changed parameter name for clarity
+        .then(rawJsonData => {
             const container = document.querySelector('.containerWrapper');
             if (!container) {
                 console.error("Error: '.containerWrapper' not found in the DOM.");
@@ -107,7 +106,6 @@ document.addEventListener('DOMContentLoaded', () => {
             container.innerHTML += renderProfileCard();
 
             // Transform raw JSON objects into SocialMediaButtonData instances
-            // This is the primary fix for the TypeError
             const socialMediaButtons = rawJsonData.map(item =>
                 new SocialMediaButtonData(item.name, item.iconSVGPath, item.buttonText, item.cssClass, item.link, item.viewBox, item.hotLink)
             );
@@ -117,16 +115,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const regularLinksData = socialMediaButtons.filter(button => !button.hotLink);
 
             // 3. Render hot and regular links sections
+            // These now correctly produce the HTML strings
             const hotLinksHtml = renderHotLinksSection(hotLinksData);
             const regularLinksHtml = renderRegularLinksSection(regularLinksData);
 
             // 4. Render and append the main links section
-            // Note: isLiveBannerActive was passed to renderLinksSection, but its use here is not defined by external calls.
-            // If the live banner logic is external, you might manage its visibility directly.
-            container.innerHTML += renderLinksSection(hotLinksHtml, regularLinksHtml, false); // Placeholder for isLiveBannerActive
+            // FIX: Pass the HTML strings directly to renderLinksSection
+            container.innerHTML += renderLinksSection(hotLinksHtml, regularLinksHtml, false);
 
             // 5. Render and append the Live Status Banner (initially hidden)
-            // No specific call for getYoutubeLiveStatus or setInterval as per your request
             container.innerHTML += renderLiveStatusBanner(false);
         })
         .catch(error => {
