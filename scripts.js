@@ -1,17 +1,24 @@
 // Classes
 class SocialMediaButtonData {
     constructor(name, iconSVGPath, buttonText, cssClass, link) {
-        this.name = name; // e.g., "Twitch"
-        this.iconSVGPath = iconSVGPath; // Only the path part of the SVG
+        this.name = name;
+        this.iconSVGPath = iconSVGPath;
         this.buttonText = buttonText;
-        this.cssClass = cssClass; // e.g., "twitchButton"
+        this.cssClass = cssClass;
         this.link = link;
     }
 
     getIconSVG() {
+        // This method will be used for regular/smaller icons
         return `<svg class="buttonIcon stickerEffect" viewBox="0 0 24 24" fill="currentColor"><path d="${this.iconSVGPath}"></path></svg>`;
     }
+
+    // NEW METHOD: For generating the larger SVG icons for hot links
+    getBigIconSVG() {
+        return `<svg class="buttonIcon buttonIconBig stickerEffect" viewBox="0 0 24 24" fill="currentColor"><path d="${this.iconSVGPath}"></path></svg>`;
+    }
 }
+
 
 // Live Updates
 
@@ -40,8 +47,7 @@ function renderLiveStatusBanner(isVisible = false) {
 function renderHotLinkButton(data) {
     return `
         <a href="${data.link}" target="_blank" class="button hotLinkButton ${data.cssClass} stickerEffect">
-            ${data.getIconSVG()}
-            <span class="buttonText">${data.buttonText}</span>
+            ${data.getBigIconSVG()} <span class="buttonText">${data.buttonText}</span>
         </a>
     `;
 }
@@ -54,6 +60,7 @@ function renderRegularButton(data) {
         </a>
     `;
 }
+
 
 function renderHotLinksSection(hotLinksDataArray) {
     let hotLinksHtml = hotLinksDataArray.map(data => renderHotLinkButton(data)).join('');
