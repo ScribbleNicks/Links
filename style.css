@@ -186,10 +186,10 @@ body {
 .hotLinkButton .buttonIcon {
     width: 50px;
     height: 50px;
-    margin-bottom: 5px;
+    margin-bottom: 0; /* Changed: Set to 0 for vertical centering after text removal */
     margin-right: 0;
     border-radius: var(--borderRadiusPrimary);
-    border: var(--stickerBorderWidth) solid var(--stickerBorderColor);
+    border: none; /* NEW: Removed border for hot link icons */
     box-shadow: var(--stickerShadowOffsetX) var(--stickerShadowOffsetY) var(--stickerShadowBlur) var(--stickerShadowColor);
     padding: 5px;
     background-color: rgba(255, 255, 255, 0.3);
@@ -213,12 +213,11 @@ body {
 .hotLinkButton .buttonIcon.buttonIconBig {
     width: 80%;
     height: 80%;
-    margin-bottom: 8px;
+    margin-bottom: 0; /* Adjusted for consistency with general icon rule */
 }
 
 .hotLinkButton .buttonText {
-    font-size: 0.9em;
-    text-align: center;
+    display: none; /* NEW: Hide the text for hot links */
 }
 
 .regularLinksSection {
@@ -324,13 +323,13 @@ body {
 
     .profileCardWrapper {
         left: 50%;
-        transform: translateX(-50%) translateY(-53%) rotate(-5deg);
+        transform: translateX(-50%) translateY(-50%) rotate(-5deg);
     }
 
     .liveStatusBanner {
         position: absolute;
         z-index: 15;
-        top: 160px;
+        top: 135px;
         left: 0;
         right: 0;
         margin-left: auto;
@@ -345,7 +344,7 @@ body {
     }
 
     .linksSection.live-banner-active {
-        margin-top: 200px;
+        margin-top: 140px;
     }
 
     .hotLinksSection {
@@ -354,23 +353,24 @@ body {
     }
 
     .hotLinkButton {
-        padding: 10px;
+        padding: 15px; /* Keep padding consistent for the square aspect ratio */
         flex-direction: column !important;
     }
 
     .hotLinkButton .buttonIcon {
         width: 40px;
         height: 40px;
+        margin-bottom: 0; /* Keep consistent */
     }
 
     .hotLinkButton .buttonIcon.buttonIconBig {
         width: 80%;
         height: 80%;
-        margin-bottom: 5px;
+        margin-bottom: 0; /* Keep consistent */
     }
 
     .hotLinkButton .buttonText {
-        font-size: 0.8em;
+        display: none; /* Hide text on mobile as well */
     }
 
     .button {
@@ -418,7 +418,7 @@ body {
     }
 
     .liveStatusBanner {
-        top: 130px;
+        top: 105px;
         left: 0;
         right: 0;
         margin-left: auto;
@@ -433,7 +433,7 @@ body {
     }
 
     .linksSection.live-banner-active {
-        margin-top: 175px;
+        margin-top: 110px;
     }
 
     .hotLinksSection {
@@ -442,22 +442,22 @@ body {
     }
 
     .hotLinkButton {
-        padding: 8px;
+        padding: 8px; /* Keep padding consistent for the square aspect ratio */
         flex-direction: column;
     }
 
     .hotLinkButton .buttonIcon {
         width: 35px;
         height: 35px;
-        margin-bottom: 3px;
+        margin-bottom: 0; /* Keep consistent */
     }
     .hotLinkButton .buttonIcon.buttonIconBig {
         width: 80%;
         height: 80%;
-        margin-bottom: 3px;
+        margin-bottom: 0; /* Keep consistent */
     }
 
     .hotLinkButton .buttonText {
-        font-size: 0.65em;
+        display: none; /* Hide text on mobile as well */
     }
 }
