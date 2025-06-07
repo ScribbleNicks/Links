@@ -187,7 +187,6 @@ body {
     width: 50px;
     height: 50px;
     margin-bottom: 5px;
-    margin-right: 0;
     border-radius: var(--borderRadiusPrimary);
     border: var(--stickerBorderWidth) solid var(--stickerBorderColor);
     box-shadow: var(--stickerShadowOffsetX) var(--stickerShadowOffsetY) var(--stickerShadowBlur) var(--stickerShadowColor);
@@ -243,7 +242,6 @@ body {
 .button .buttonIcon {
     width: 30px;
     height: 30px;
-    margin-right: 0; /* Remove margin-right from here */
     border-radius: var(--borderRadiusPrimary);
     border: var(--stickerBorderWidth) solid var(--stickerBorderColor);
     box-shadow: var(--stickerShadowOffsetX) var(--stickerShadowOffsetY) var(--stickerShadowBlur) var(--stickerShadowColor);
@@ -254,7 +252,7 @@ body {
 .button .buttonText {
     flex-grow: 1;
     text-align: left;
-    margin-left: 10px; /* Add spacing to the text */
+    margin-left: 10px;
 }
 
 .twitchButton { background-color: var(--twitchColor); color: var(--textColorLight); }
