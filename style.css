@@ -146,7 +146,7 @@ body {
 
 @keyframes pulseSmall {
     from { transform: scale(1); }
-    to { transform: scale(1.05); }
+    to { transform: 1.05; }
 }
 
 .linksSection {
@@ -163,7 +163,7 @@ body {
 
 .hotLinksSection {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Default for larger screens */
+    grid-template-columns: repeat(3, 1fr);
     gap: 15px;
     width: 100%;
 }
@@ -199,7 +199,6 @@ body {
     height: 80%;
     margin-bottom: 8px;
 }
-
 
 .hotLinkButton .buttonText {
     font-size: 0.9em;
@@ -278,7 +277,7 @@ body {
 
 @media (max-width: 768px) {
     .container {
-        padding: 50px 20px 20px;
+        padding: 130px 20px 20px;
     }
 
     .profileCardWrapper {
@@ -308,9 +307,8 @@ body {
     }
 
     .hotLinksSection {
-        /* Keep auto-fit for this range, but perhaps a slightly smaller minmax */
         grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-        gap: 10px; /* Slightly reduce gap */
+        gap: 10px;
     }
 
     .hotLinkButton {
@@ -324,7 +322,7 @@ body {
     }
 
     .hotLinkButton .buttonIcon.buttonIconBig {
-        width: 80%; /* Adjusted from 90% */
+        width: 80%;
         height: 80%;
         margin-bottom: 5px;
     }
@@ -348,7 +346,7 @@ body {
 
 @media (max-width: 480px) {
     .container {
-        padding: 40px 15px 15px;
+        padding: 110px 15px 15px;
     }
 
     .profileCard {
@@ -393,8 +391,7 @@ body {
     }
 
     .hotLinksSection {
-        /* FIX: Use auto-fit with a smaller min-width for mobile */
-        grid-template-columns: repeat(auto-fit, minmax(95px, 1fr)); /* Allowing columns to be smaller or adjust count */
+        grid-template-columns: repeat(auto-fit, minmax(95px, 1fr));
         gap: 8px;
     }
 
@@ -409,12 +406,12 @@ body {
         margin-bottom: 3px;
     }
     .hotLinkButton .buttonIcon.buttonIconBig {
-        width: 80%; /* Adjusted from 90% for more breathing room */
+        width: 80%;
         height: 80%;
         margin-bottom: 3px;
     }
 
     .hotLinkButton .buttonText {
-        font-size: 0.65em; /* Slightly smaller text for fitting */
+        font-size: 0.65em;
     }
 }
