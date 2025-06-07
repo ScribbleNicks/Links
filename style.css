@@ -206,7 +206,7 @@ body {
     padding: 0;
     object-fit: contain;
     /* Compensate for potential slight left offset in asset */
-    transform: translateX(1px);
+    transform: translateX(10px);
 }
 
 
