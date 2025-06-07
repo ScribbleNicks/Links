@@ -1,24 +1,24 @@
 // Classes
 class SocialMediaButtonData {
-    constructor(name, iconPNGPath, buttonText, cssClass, link, hotLink) { // Changed parameters
+    constructor(name, iconPNGPath, buttonText, cssClass, link, hotLink) {
         this.name = name;
-        this.iconPNGPath = iconPNGPath; // Storing PNG path
+        this.iconPNGPath = iconPNGPath;
         this.buttonText = buttonText;
         this.cssClass = cssClass;
         this.link = link;
         this.hotLink = hotLink;
     }
 
-    getIconPNG() { // New method for regular size PNGs
+    getIconPNG() {
         return `<img class="buttonIcon stickerEffect" src="${this.iconPNGPath}" alt="${this.name} icon">`;
     }
 
-    getBigIconPNG() { // New method for big PNGs (for hot links)
+    getBigIconPNG() {
         return `<img class="buttonIcon buttonIconBig stickerEffect" src="${this.iconPNGPath}" alt="${this.name} icon">`;
     }
 }
 
-// Live Updates (This section remains as you provided it, blank)
+// Live Updates
 
 
 // HTML Functions
@@ -89,14 +89,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         const data = await response.json();
 
-        // FIX: Map to SocialMediaButtonData using iconPNGPath and hotLink
         socialMediaData = data.map(item => new SocialMediaButtonData(
             item.name,
-            item.iconPNGPath, // Use new iconPNGPath
+            item.iconPNGPath,
             item.buttonText,
             item.cssClass,
             item.link,
-            item.hotLink // Pass hotLink to constructor
+            item.hotLink
         ));
     } catch (error) {
         console.error("Failed to load social media data:", error);
@@ -104,16 +103,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    const hotLinks = socialMediaData.filter(item => item.hotLink); // Filter based on the hotLink property now on the class instance
-    const regularLinks = socialMediaData.filter(item => !item.hotLink); // Filter based on the hotLink property now on the class instance
+    const hotLinks = socialMediaData.filter(item => item.hotLink);
+    const regularLinks = socialMediaData.filter(item => !item.hotLink);
 
     const isLive = false;
 
     const profileCardHtml = renderProfileCard();
     const liveBannerHtml = renderLiveStatusBanner(isLive);
-    const hotLinksHtml = renderHotLinksSection(hotLinks); // Render hot links section HTML
-    const regularLinksHtml = renderRegularLinksSection(regularLinks); // Render regular links section HTML
-    const linksSectionHtml = renderLinksSection(hotLinksHtml, regularLinksHtml, isLive); // Assemble links section HTML
+    const hotLinksHtml = renderHotLinksSection(hotLinks);
+    const regularLinksHtml = renderRegularLinksSection(regularLinks);
+    const linksSectionHtml = renderLinksSection(hotLinksHtml, regularLinksHtml, isLive);
 
     containerWrapper.innerHTML = `
         <div class="container stickerEffect">

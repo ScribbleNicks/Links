@@ -184,7 +184,7 @@ body {
 }
 
 .hotLinkButton .buttonIcon {
-    width: 50px; /* Base size for icons within hot links */
+    width: 50px;
     height: 50px;
     margin-bottom: 5px;
     border-radius: var(--borderRadiusPrimary);
@@ -194,11 +194,10 @@ body {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
-/* NEW: Styles for the BIG icons specifically on hot links */
 .hotLinkButton .buttonIcon.buttonIconBig {
-    width: 70px; /* Make them noticeably larger */
-    height: 70px;
-    margin-bottom: 8px; /* Adjust spacing for the larger size */
+    width: 80%;
+    height: 80%;
+    margin-bottom: 8px;
 }
 
 
@@ -228,7 +227,7 @@ body {
 }
 
 .button .buttonIcon {
-    width: 30px; /* Base size for icons within regular links */
+    width: 30px;
     height: 30px;
     margin-right: 10px;
     border-radius: var(--borderRadiusPrimary);
@@ -320,14 +319,14 @@ body {
     }
 
     .hotLinkButton .buttonIcon {
-        width: 40px; /* Existing smaller size for hot link icons on medium screens */
+        width: 40px;
         height: 40px;
     }
-    /* NEW: Adjust size for big hot link icons in this media query */
+
     .hotLinkButton .buttonIcon.buttonIconBig {
-        width: 60px; /* Larger size for big hot link icons on medium screens */
-        height: 60px;
-        margin-bottom: 5px; /* Adjust spacing */
+        width: 90%;
+        height: 80%;
+        margin-bottom: 5px;
     }
 
 
@@ -342,7 +341,7 @@ body {
     }
 
     .button .buttonIcon {
-        width: 25px; /* Existing smaller size for regular link icons on medium screens */
+        width: 25px;
         height: 25px;
         margin-right: 8px;
     }
@@ -406,15 +405,14 @@ body {
     }
 
     .hotLinkButton .buttonIcon {
-        width: 35px; /* Existing smallest size for hot link icons on small screens */
+        width: 35px;
         height: 35px;
         margin-bottom: 3px;
     }
-    /* NEW: Adjust size for big hot link icons in this media query */
     .hotLinkButton .buttonIcon.buttonIconBig {
-        width: 50px; /* Larger size for big hot link icons on small screens */
-        height: 50px;
-        margin-bottom: 3px; /* Adjust spacing */
+        width: 90%;
+        height: 80%;
+        margin-bottom: 3px;
     }
 
     .hotLinkButton .buttonText {
