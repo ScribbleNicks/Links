@@ -277,11 +277,11 @@ body {
 
 @media (max-width: 768px) {
     .containerWrapper {
-        padding-top: 50px;
+        padding-top: 80px;
     }
 
     .container {
-        padding: 130px 20px 20px;
+        padding: 80px 20px 20px;
     }
 
     .profileCardWrapper {
@@ -350,11 +350,11 @@ body {
 
 @media (max-width: 480px) {
     .containerWrapper {
-        padding-top: 40px;
+        padding-top: 70px;
     }
 
     .container {
-        padding: 110px 15px 15px;
+        padding: 70px 15px 15px;
     }
 
     .profileCard {
