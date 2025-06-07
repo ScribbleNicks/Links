@@ -85,6 +85,7 @@ function renderLinksSection(hotLinksDataArray, regularLinksDataArray, isLiveBann
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Fetch social media data first
     fetch('data/socialMediaData.json')
         .then(response => {
             if (!response.ok) {
@@ -99,32 +100,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            const linksSection = document.createElement('div');
-            linksSection.className = 'linksSection';
+            // Clear existing content to ensure a clean slate for dynamic rendering
+            container.innerHTML = '';
 
-            const hotLinksSection = document.createElement('div');
-            hotLinksSection.className = 'hotLinksSection';
-            const regularLinksSection = document.createElement('div');
-            regularLinksSection.className = 'regularLinksSection';
+            // 1. Render and append the Profile Card
+            container.innerHTML += renderProfileCard();
 
-            data.forEach(item => {
-                const buttonData = new SocialMediaButtonData(item.name, item.iconSVGPath, item.buttonText, item.cssClass, item.link, item.viewBox);
+            // 2. Prepare hot and regular links data
+            const hotLinksData = data.filter(item => item.hotLink);
+            const regularLinksData = data.filter(item => !item.hotLink);
 
-                if (item.hotLink) {
-                    hotLinksSection.innerHTML += renderHotLinkButton(buttonData);
-                } else {
-                    regularLinksSection.innerHTML += renderRegularButton(buttonData);
-                }
-            });
+            // 3. Render hot and regular links sections
+            const hotLinksHtml = renderHotLinksSection(hotLinksData);
+            const regularLinksHtml = renderRegularLinksSection(regularLinksData);
 
-            linksSection.appendChild(hotLinksSection);
-            linksSection.appendChild(regularLinksSection);
-            container.appendChild(linksSection);
+            // 4. Render and append the main links section
+            container.innerHTML += renderLinksSection(hotLinksHtml, regularLinksHtml);
+
+            // 5. Render and append the Live Status Banner (initially hidden)
+            container.innerHTML += renderLiveStatusBanner(false); // It will be updated by getYoutubeLiveStatus
+
+            setInterval(getYoutubeLiveStatus, 60000);
         })
         .catch(error => {
             console.error("Failed to load social media links:", error);
             const container = document.querySelector('.containerWrapper');
             if (container) {
+                // Display a fallback message if data fails to load
                 container.innerHTML = "<p>Failed to load links. Please try again later.</p>";
             }
         });
