@@ -277,7 +277,7 @@ body {
 
 @media (max-width: 768px) {
     .containerWrapper {
-        padding-top: 110px;
+        padding-top: 175px;
     }
 
     .container {
@@ -350,7 +350,7 @@ body {
 
 @media (max-width: 480px) {
     .containerWrapper {
-        padding-top: 100px;
+        padding-top: 150px;
     }
 
     .container {
