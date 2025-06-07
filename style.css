@@ -187,6 +187,7 @@ body {
     width: 50px;
     height: 50px;
     margin-bottom: 5px;
+    margin-right: 0; /* Crucial: Remove margin-right for hot link icons */
     border-radius: var(--borderRadiusPrimary);
     border: var(--stickerBorderWidth) solid var(--stickerBorderColor);
     box-shadow: var(--stickerShadowOffsetX) var(--stickerShadowOffsetY) var(--stickerShadowBlur) var(--stickerShadowColor);
@@ -205,6 +206,7 @@ body {
     margin: 0;
     padding: 0;
     object-fit: contain;
+    transform: none; /* Remove previous compensatory transform */
 }
 
 
@@ -217,6 +219,7 @@ body {
 .hotLinkButton .buttonText {
     font-size: 0.9em;
     text-align: center;
+    /* No margin-left here for hot link button text */
 }
 
 .regularLinksSection {
@@ -242,6 +245,7 @@ body {
 .button .buttonIcon {
     width: 30px;
     height: 30px;
+    margin-right: 0; /* Remove margin-right from here */
     border-radius: var(--borderRadiusPrimary);
     border: var(--stickerBorderWidth) solid var(--stickerBorderColor);
     box-shadow: var(--stickerShadowOffsetX) var(--stickerShadowOffsetY) var(--stickerShadowBlur) var(--stickerShadowColor);
@@ -252,7 +256,12 @@ body {
 .button .buttonText {
     flex-grow: 1;
     text-align: left;
-    margin-left: 10px;
+    /* Remove margin-left from this general rule */
+}
+
+/* NEW CLASS FOR REGULAR BUTTON TEXT ONLY */
+.regularLinkButtonText {
+    margin-left: 10px; /* This margin is ONLY for regular link text */
 }
 
 .twitchButton { background-color: var(--twitchColor); color: var(--textColorLight); }
@@ -376,6 +385,7 @@ body {
     .button .buttonIcon {
         width: 25px;
         height: 25px;
+        margin-right: 0; /* Remove margin-right from here as well */
     }
 }
 

@@ -53,7 +53,7 @@ function renderHotLinkButton(data) {
 function renderRegularButton(data) {
     return `
         <a href="${data.link}" target="_blank" class="button ${data.cssClass} stickerEffect">
-            ${data.getIconPNG()} <span class="buttonText">${data.buttonText}</span>
+            ${data.getIconPNG()} <span class="buttonText regularLinkButtonText">${data.buttonText}</span>
         </a>
     `;
 }
