@@ -192,6 +192,9 @@ body {
     box-shadow: var(--stickerShadowOffsetX) var(--stickerShadowOffsetY) var(--stickerShadowBlur) var(--stickerShadowColor);
     padding: 5px;
     background-color: rgba(255, 255, 255, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .hotLinkButton .buttonIcon.buttonIconBig {
