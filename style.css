@@ -330,7 +330,7 @@ body {
     .liveStatusBanner {
         position: absolute;
         z-index: 15;
-        top: 135px;
+        top: 160px;
         left: 0;
         right: 0;
         margin-left: auto;
@@ -345,7 +345,7 @@ body {
     }
 
     .linksSection.live-banner-active {
-        margin-top: 140px;
+        margin-top: 200px;
     }
 
     .hotLinksSection {
@@ -418,7 +418,7 @@ body {
     }
 
     .liveStatusBanner {
-        top: 105px;
+        top: 130px;
         left: 0;
         right: 0;
         margin-left: auto;
@@ -433,7 +433,7 @@ body {
     }
 
     .linksSection.live-banner-active {
-        margin-top: 110px;
+        margin-top: 170px;
     }
 
     .hotLinksSection {
