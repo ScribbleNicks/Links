@@ -187,6 +187,7 @@ body {
     width: 50px;
     height: 50px;
     margin-bottom: 5px;
+    margin-right: 0;
     border-radius: var(--borderRadiusPrimary);
     border: var(--stickerBorderWidth) solid var(--stickerBorderColor);
     box-shadow: var(--stickerShadowOffsetX) var(--stickerShadowOffsetY) var(--stickerShadowBlur) var(--stickerShadowColor);
@@ -205,8 +206,6 @@ body {
     margin: 0;
     padding: 0;
     object-fit: contain;
-    /* Compensate for potential slight left offset in asset */
-    transform: translateX(10px);
 }
 
 
@@ -244,7 +243,7 @@ body {
 .button .buttonIcon {
     width: 30px;
     height: 30px;
-    margin-right: 10px;
+    margin-right: 0; /* Remove margin-right from here */
     border-radius: var(--borderRadiusPrimary);
     border: var(--stickerBorderWidth) solid var(--stickerBorderColor);
     box-shadow: var(--stickerShadowOffsetX) var(--stickerShadowOffsetY) var(--stickerShadowBlur) var(--stickerShadowColor);
@@ -255,6 +254,7 @@ body {
 .button .buttonText {
     flex-grow: 1;
     text-align: left;
+    margin-left: 10px; /* Add spacing to the text */
 }
 
 .twitchButton { background-color: var(--twitchColor); color: var(--textColorLight); }
@@ -378,7 +378,6 @@ body {
     .button .buttonIcon {
         width: 25px;
         height: 25px;
-        margin-right: 8px;
     }
 }
 
