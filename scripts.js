@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const hotLinks = socialMediaData.slice(0, 3);
     const regularLinks = socialMediaData.slice(3);
 
-    const isLive = getYoutubeLiveStatus(); 
+    const isLive = false; 
 
     const profileCardHtml = renderProfileCard();
     const liveBannerHtml = renderLiveStatusBanner(isLive);
