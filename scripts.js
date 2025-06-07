@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const hotLinks = socialMediaData.filter(item => item.hotLink);
     const regularLinks = socialMediaData.filter(item => !item.hotLink);
 
-    const isLive = false;
+    const isLive = true;
 
     const profileCardHtml = renderProfileCard();
     const liveBannerHtml = renderLiveStatusBanner(isLive);
