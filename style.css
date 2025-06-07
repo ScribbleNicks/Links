@@ -163,7 +163,7 @@ body {
 
 .hotLinksSection {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); /* Default for larger screens */
     gap: 15px;
     width: 100%;
 }
@@ -308,13 +308,13 @@ body {
     }
 
     .hotLinksSection {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        /* Keep auto-fit for this range, but perhaps a slightly smaller minmax */
+        grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+        gap: 10px; /* Slightly reduce gap */
     }
 
     .hotLinkButton {
         padding: 10px;
-        display: flex;
         flex-direction: column !important;
     }
 
@@ -324,11 +324,10 @@ body {
     }
 
     .hotLinkButton .buttonIcon.buttonIconBig {
-        width: 90%;
+        width: 80%; /* Adjusted from 90% */
         height: 80%;
         margin-bottom: 5px;
     }
-
 
     .hotLinkButton .buttonText {
         font-size: 0.8em;
@@ -394,13 +393,13 @@ body {
     }
 
     .hotLinksSection {
-        grid-template-columns: repeat(3, 1fr);
+        /* FIX: Use auto-fit with a smaller min-width for mobile */
+        grid-template-columns: repeat(auto-fit, minmax(95px, 1fr)); /* Allowing columns to be smaller or adjust count */
         gap: 8px;
     }
 
     .hotLinkButton {
         padding: 8px;
-        display: flex;
         flex-direction: column;
     }
 
@@ -410,12 +409,12 @@ body {
         margin-bottom: 3px;
     }
     .hotLinkButton .buttonIcon.buttonIconBig {
-        width: 90%;
+        width: 80%; /* Adjusted from 90% for more breathing room */
         height: 80%;
         margin-bottom: 3px;
     }
 
     .hotLinkButton .buttonText {
-        font-size: 0.7em;
+        font-size: 0.65em; /* Slightly smaller text for fitting */
     }
 }
