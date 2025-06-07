@@ -259,19 +259,37 @@ body {
 .linkedinButton { background-color: var(--linkedinColor); color: var(--textColorLight); }
 .linkedinButton:hover { background-color: var(--linkedinHoverColor); }
 
-.button:nth-child(odd):hover {
+@media (hover: hover) and (pointer: fine) {
+    .button:nth-child(odd):hover {
+        transform: scale(1.03) rotate(2deg);
+    }
+
+    .button:nth-child(even):hover {
+        transform: scale(1.03) rotate(-2deg);
+    }
+
+    .hotLinkButton:nth-child(odd):hover {
+        transform: scale(1.05) rotate(3deg);
+    }
+
+    .hotLinkButton:nth-child(even):hover {
+        transform: scale(1.05) rotate(-3deg);
+    }
+}
+
+.button:nth-child(odd):active {
     transform: scale(1.03) rotate(2deg);
 }
 
-.button:nth-child(even):hover {
+.button:nth-child(even):active {
     transform: scale(1.03) rotate(-2deg);
 }
 
-.hotLinkButton:nth-child(odd):hover {
+.hotLinkButton:nth-child(odd):active {
     transform: scale(1.05) rotate(3deg);
 }
 
-.hotLinkButton:nth-child(even):hover {
+.hotLinkButton:nth-child(even):active {
     transform: scale(1.05) rotate(-3deg);
 }
 
