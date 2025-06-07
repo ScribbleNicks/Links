@@ -199,12 +199,14 @@ body {
 
 .hotLinkButton .buttonIcon img,
 .hotLinkButton .buttonIcon svg {
-    display: block; /* Ensures no weird inline-block spacing */
-    max-width: 100%; /* Ensures it scales down if larger than container */
-    max-height: 100%; /* Ensures it scales down if taller than container */
-    margin: 0;      /* Remove any default margins */
-    padding: 0;     /* Remove any default padding */
-    object-fit: contain; /* Ensures the entire icon is visible within its space */
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0;
+    padding: 0;
+    object-fit: contain;
+    /* Compensate for potential slight left offset in asset */
+    transform: translateX(1px);
 }
 
 
