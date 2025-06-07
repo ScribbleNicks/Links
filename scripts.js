@@ -1,21 +1,20 @@
 // Classes
 class SocialMediaButtonData {
-    constructor(name, iconSVGPath, buttonText, cssClass, link) {
+    constructor(name, iconSVGPath, buttonText, cssClass, link, viewBox) {
         this.name = name;
         this.iconSVGPath = iconSVGPath;
         this.buttonText = buttonText;
         this.cssClass = cssClass;
         this.link = link;
+        this.viewBox = viewBox;
     }
 
     getIconSVG() {
-        // This method will be used for regular/smaller icons
-        return `<svg class="buttonIcon stickerEffect" viewBox="0 0 24 24" fill="currentColor"><path d="${this.iconSVGPath}"></path></svg>`;
+        return `<svg class="buttonIcon stickerEffect" viewBox="${this.viewBox}" fill="currentColor"><path d="${this.iconSVGPath}"></path></svg>`;
     }
 
-    // NEW METHOD: For generating the larger SVG icons for hot links
     getBigIconSVG() {
-        return `<svg class="buttonIcon buttonIconBig stickerEffect" viewBox="0 0 24 24" fill="currentColor"><path d="${this.iconSVGPath}"></path></svg>`;
+        return `<svg class="buttonIcon buttonIconBig stickerEffect" viewBox="${this.viewBox}" fill="currentColor"><path d="${this.iconSVGPath}"></path></svg>`;
     }
 }
 
@@ -47,19 +46,22 @@ function renderLiveStatusBanner(isVisible = false) {
 function renderHotLinkButton(data) {
     return `
         <a href="${data.link}" target="_blank" class="button hotLinkButton ${data.cssClass} stickerEffect">
-            ${data.getBigIconSVG()} <span class="buttonText">${data.buttonText}</span>
+            ${data.getBigIconSVG()}
+            <span class="buttonText">${data.buttonText}</span>
         </a>
     `;
 }
 
 function renderRegularButton(data) {
     return `
-        <a href="${data.link}" target="_blank" class="button ${data.cssClass} stickerEffect">
+        <a href="${data.link}" target="_blank" class="button regularButton ${data.cssClass} stickerEffect">
             ${data.getIconSVG()}
             <span class="buttonText">${data.buttonText}</span>
+            <span class="buttonArrow"></span>
         </a>
     `;
 }
+
 
 
 function renderHotLinksSection(hotLinksDataArray) {
@@ -82,46 +84,48 @@ function renderLinksSection(hotLinksDataArray, regularLinksDataArray, isLiveBann
     `;
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-    const containerWrapper = document.querySelector('.containerWrapper');
+document.addEventListener('DOMContentLoaded', () => {
+    fetch('data/socialMediaData.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            const container = document.querySelector('.containerWrapper');
+            if (!container) {
+                console.error("Error: '.containerWrapper' not found in the DOM.");
+                return;
+            }
 
-    let socialMediaData = [];
-    try {
-        const response = await fetch('data/socialMediaData.json'); 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        
-        socialMediaData = data.map(item => new SocialMediaButtonData(
-            item.name,
-            item.iconSVGPath,
-            item.buttonText,
-            item.cssClass,
-            item.link
-        ));
-    } catch (error) {
-        console.error("Failed to load social media data:", error);
-        containerWrapper.innerHTML = '<p style="color: red; text-align: center;">Failed to load links. Please try again later.</p>';
-        return;
-    }
+            const linksSection = document.createElement('div');
+            linksSection.className = 'linksSection';
 
-    const hotLinks = socialMediaData.slice(0, 3);
-    const regularLinks = socialMediaData.slice(3);
+            const hotLinksSection = document.createElement('div');
+            hotLinksSection.className = 'hotLinksSection';
+            const regularLinksSection = document.createElement('div');
+            regularLinksSection.className = 'regularLinksSection';
 
-    const isLive = false; 
+            data.forEach(item => {
+                const buttonData = new SocialMediaButtonData(item.name, item.iconSVGPath, item.buttonText, item.cssClass, item.link, item.viewBox);
 
-    const profileCardHtml = renderProfileCard();
-    const liveBannerHtml = renderLiveStatusBanner(isLive);
-    const linksSectionHtml = renderLinksSection(hotLinks, regularLinks, isLive);
+                if (item.hotLink) {
+                    hotLinksSection.innerHTML += renderHotLinkButton(buttonData);
+                } else {
+                    regularLinksSection.innerHTML += renderRegularButton(buttonData);
+                }
+            });
 
-    containerWrapper.innerHTML = `
-        <div class="container stickerEffect">
-            <div class="profileCardWrapper">
-                ${profileCardHtml}
-            </div>
-            ${liveBannerHtml}
-            ${linksSectionHtml}
-        </div>
-    `;
+            linksSection.appendChild(hotLinksSection);
+            linksSection.appendChild(regularLinksSection);
+            container.appendChild(linksSection);
+        })
+        .catch(error => {
+            console.error("Failed to load social media links:", error);
+            const container = document.querySelector('.containerWrapper');
+            if (container) {
+                container.innerHTML = "<p>Failed to load links. Please try again later.</p>";
+            }
+        });
 });
