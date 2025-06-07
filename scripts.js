@@ -1,12 +1,13 @@
 // Classes
 class SocialMediaButtonData {
-    constructor(name, iconSVGPath, buttonText, cssClass, link, viewBox) {
+    constructor(name, iconSVGPath, buttonText, cssClass, link, viewBox, hotLink) {
         this.name = name;
         this.iconSVGPath = iconSVGPath;
         this.buttonText = buttonText;
         this.cssClass = cssClass;
         this.link = link;
         this.viewBox = viewBox;
+        this.hotLink = hotLink; // This line was added
     }
 
     getIconSVG() {
@@ -19,7 +20,7 @@ class SocialMediaButtonData {
 }
 
 
-// Live Updates
+// Live Updates (This section remains as you provided it, blank)
 
 
 // HTML Functions
@@ -63,7 +64,6 @@ function renderRegularButton(data) {
 }
 
 
-
 function renderHotLinksSection(hotLinksDataArray) {
     let hotLinksHtml = hotLinksDataArray.map(data => renderHotLinkButton(data)).join('');
     return `<div class="hotLinksSection">${hotLinksHtml}</div>`;
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             return response.json();
         })
-        .then(data => {
+        .then(rawJsonData => { // Changed parameter name for clarity
             const container = document.querySelector('.containerWrapper');
             if (!container) {
                 console.error("Error: '.containerWrapper' not found in the DOM.");
@@ -106,21 +106,28 @@ document.addEventListener('DOMContentLoaded', () => {
             // 1. Render and append the Profile Card
             container.innerHTML += renderProfileCard();
 
-            // 2. Prepare hot and regular links data
-            const hotLinksData = data.filter(item => item.hotLink);
-            const regularLinksData = data.filter(item => !item.hotLink);
+            // Transform raw JSON objects into SocialMediaButtonData instances
+            // This is the primary fix for the TypeError
+            const socialMediaButtons = rawJsonData.map(item =>
+                new SocialMediaButtonData(item.name, item.iconSVGPath, item.buttonText, item.cssClass, item.link, item.viewBox, item.hotLink)
+            );
+
+            // 2. Prepare hot and regular links data using the new instances
+            const hotLinksData = socialMediaButtons.filter(button => button.hotLink);
+            const regularLinksData = socialMediaButtons.filter(button => !button.hotLink);
 
             // 3. Render hot and regular links sections
             const hotLinksHtml = renderHotLinksSection(hotLinksData);
             const regularLinksHtml = renderRegularLinksSection(regularLinksData);
 
             // 4. Render and append the main links section
-            container.innerHTML += renderLinksSection(hotLinksHtml, regularLinksHtml);
+            // Note: isLiveBannerActive was passed to renderLinksSection, but its use here is not defined by external calls.
+            // If the live banner logic is external, you might manage its visibility directly.
+            container.innerHTML += renderLinksSection(hotLinksHtml, regularLinksHtml, false); // Placeholder for isLiveBannerActive
 
             // 5. Render and append the Live Status Banner (initially hidden)
-            container.innerHTML += renderLiveStatusBanner(false); // It will be updated by getYoutubeLiveStatus
-
-            setInterval(getYoutubeLiveStatus, 60000);
+            // No specific call for getYoutubeLiveStatus or setInterval as per your request
+            container.innerHTML += renderLiveStatusBanner(false);
         })
         .catch(error => {
             console.error("Failed to load social media links:", error);
