@@ -1,19 +1,24 @@
 // Classes
 class SocialMediaButtonData {
-    constructor(name, iconSVGPath, buttonText, cssClass, link) {
-        this.name = name; // e.g., "Twitch"
-        this.iconSVGPath = iconSVGPath; // Only the path part of the SVG
+    constructor(name, iconPNGPath, buttonText, cssClass, link, hotLink) { // Changed parameters
+        this.name = name;
+        this.iconPNGPath = iconPNGPath; // Storing PNG path
         this.buttonText = buttonText;
-        this.cssClass = cssClass; // e.g., "twitchButton"
+        this.cssClass = cssClass;
         this.link = link;
+        this.hotLink = hotLink;
     }
 
-    getIconSVG() {
-        return `<svg class="buttonIcon stickerEffect" viewBox="0 0 24 24" fill="currentColor"><path d="${this.iconSVGPath}"></path></svg>`;
+    getIconPNG() { // New method for regular size PNGs
+        return `<img class="buttonIcon stickerEffect" src="${this.iconPNGPath}" alt="${this.name} icon">`;
+    }
+
+    getBigIconPNG() { // New method for big PNGs (for hot links)
+        return `<img class="buttonIcon buttonIconBig stickerEffect" src="${this.iconPNGPath}" alt="${this.name} icon">`;
     }
 }
 
-// Live Updates
+// Live Updates (This section remains as you provided it, blank)
 
 
 // HTML Functions
@@ -40,8 +45,7 @@ function renderLiveStatusBanner(isVisible = false) {
 function renderHotLinkButton(data) {
     return `
         <a href="${data.link}" target="_blank" class="button hotLinkButton ${data.cssClass} stickerEffect">
-            ${data.getIconSVG()}
-            <span class="buttonText">${data.buttonText}</span>
+            ${data.getBigIconPNG()} <span class="buttonText">${data.buttonText}</span>
         </a>
     `;
 }
@@ -49,8 +53,7 @@ function renderHotLinkButton(data) {
 function renderRegularButton(data) {
     return `
         <a href="${data.link}" target="_blank" class="button ${data.cssClass} stickerEffect">
-            ${data.getIconSVG()}
-            <span class="buttonText">${data.buttonText}</span>
+            ${data.getIconPNG()} <span class="buttonText">${data.buttonText}</span>
         </a>
     `;
 }
@@ -65,12 +68,12 @@ function renderRegularLinksSection(regularLinksDataArray) {
     return `<div class="regularLinksSection">${regularLinksHtml}</div>`;
 }
 
-function renderLinksSection(hotLinksDataArray, regularLinksDataArray, isLiveBannerActive) {
+function renderLinksSection(hotLinksHtmlString, regularLinksHtmlString, isLiveBannerActive) {
     const liveBannerClass = isLiveBannerActive ? 'live-banner-active' : '';
     return `
         <div class="linksSection ${liveBannerClass}">
-            ${renderHotLinksSection(hotLinksDataArray)}
-            ${renderRegularLinksSection(regularLinksDataArray)}
+            ${hotLinksHtmlString}
+            ${regularLinksHtmlString}
         </div>
     `;
 }
@@ -80,18 +83,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     let socialMediaData = [];
     try {
-        const response = await fetch('data/socialMediaData.json'); 
+        const response = await fetch('data/socialMediaData.json');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        
+
+        // FIX: Map to SocialMediaButtonData using iconPNGPath and hotLink
         socialMediaData = data.map(item => new SocialMediaButtonData(
             item.name,
-            item.iconSVGPath,
+            item.iconPNGPath, // Use new iconPNGPath
             item.buttonText,
             item.cssClass,
-            item.link
+            item.link,
+            item.hotLink // Pass hotLink to constructor
         ));
     } catch (error) {
         console.error("Failed to load social media data:", error);
@@ -99,14 +104,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    const hotLinks = socialMediaData.slice(0, 3);
-    const regularLinks = socialMediaData.slice(3);
+    const hotLinks = socialMediaData.filter(item => item.hotLink); // Filter based on the hotLink property now on the class instance
+    const regularLinks = socialMediaData.filter(item => !item.hotLink); // Filter based on the hotLink property now on the class instance
 
-    const isLive = false; 
+    const isLive = false;
 
     const profileCardHtml = renderProfileCard();
     const liveBannerHtml = renderLiveStatusBanner(isLive);
-    const linksSectionHtml = renderLinksSection(hotLinks, regularLinks, isLive);
+    const hotLinksHtml = renderHotLinksSection(hotLinks); // Render hot links section HTML
+    const regularLinksHtml = renderRegularLinksSection(regularLinks); // Render regular links section HTML
+    const linksSectionHtml = renderLinksSection(hotLinksHtml, regularLinksHtml, isLive); // Assemble links section HTML
 
     containerWrapper.innerHTML = `
         <div class="container stickerEffect">
