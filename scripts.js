@@ -1,26 +1,19 @@
 // Classes
 class SocialMediaButtonData {
-    constructor(name, iconSVGPath, buttonText, cssClass, link, viewBox, hotLink) {
-        this.name = name;
-        this.iconSVGPath = iconSVGPath;
+    constructor(name, iconSVGPath, buttonText, cssClass, link) {
+        this.name = name; // e.g., "Twitch"
+        this.iconSVGPath = iconSVGPath; // Only the path part of the SVG
         this.buttonText = buttonText;
-        this.cssClass = cssClass;
+        this.cssClass = cssClass; // e.g., "twitchButton"
         this.link = link;
-        this.viewBox = viewBox;
-        this.hotLink = hotLink;
     }
 
     getIconSVG() {
-        return `<svg class="buttonIcon stickerEffect" viewBox="${this.viewBox}" fill="currentColor"><path d="${this.iconSVGPath}"></path></svg>`;
-    }
-
-    getBigIconSVG() {
-        return `<svg class="buttonIcon buttonIconBig stickerEffect" viewBox="${this.viewBox}" fill="currentColor"><path d="${this.iconSVGPath}"></path></svg>`;
+        return `<svg class="buttonIcon stickerEffect" viewBox="0 0 24 24" fill="currentColor"><path d="${this.iconSVGPath}"></path></svg>`;
     }
 }
 
-
-// Live Updates (This section remains as you provided it, blank)
+// Live Updates
 
 
 // HTML Functions
@@ -47,7 +40,7 @@ function renderLiveStatusBanner(isVisible = false) {
 function renderHotLinkButton(data) {
     return `
         <a href="${data.link}" target="_blank" class="button hotLinkButton ${data.cssClass} stickerEffect">
-            ${data.getBigIconSVG()}
+            ${data.getIconSVG()}
             <span class="buttonText">${data.buttonText}</span>
         </a>
     `;
@@ -55,14 +48,12 @@ function renderHotLinkButton(data) {
 
 function renderRegularButton(data) {
     return `
-        <a href="${data.link}" target="_blank" class="button regularButton ${data.cssClass} stickerEffect">
+        <a href="${data.link}" target="_blank" class="button ${data.cssClass} stickerEffect">
             ${data.getIconSVG()}
             <span class="buttonText">${data.buttonText}</span>
-            <span class="buttonArrow"></span>
         </a>
     `;
 }
-
 
 function renderHotLinksSection(hotLinksDataArray) {
     let hotLinksHtml = hotLinksDataArray.map(data => renderHotLinkButton(data)).join('');
@@ -74,64 +65,56 @@ function renderRegularLinksSection(regularLinksDataArray) {
     return `<div class="regularLinksSection">${regularLinksHtml}</div>`;
 }
 
-// FIX: This function now expects the already-rendered HTML strings for the sections.
-function renderLinksSection(hotLinksHtmlString, regularLinksHtmlString, isLiveBannerActive) {
+function renderLinksSection(hotLinksDataArray, regularLinksDataArray, isLiveBannerActive) {
     const liveBannerClass = isLiveBannerActive ? 'live-banner-active' : '';
     return `
         <div class="linksSection ${liveBannerClass}">
-            ${hotLinksHtmlString}  ${regularLinksHtmlString} </div>
+            ${renderHotLinksSection(hotLinksDataArray)}
+            ${renderRegularLinksSection(regularLinksDataArray)}
+        </div>
     `;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Fetch social media data first
-    fetch('data/socialMediaData.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(rawJsonData => {
-            const container = document.querySelector('.containerWrapper');
-            if (!container) {
-                console.error("Error: '.containerWrapper' not found in the DOM.");
-                return;
-            }
+document.addEventListener('DOMContentLoaded', async () => {
+    const containerWrapper = document.querySelector('.containerWrapper');
 
-            // Clear existing content to ensure a clean slate for dynamic rendering
-            container.innerHTML = '';
+    let socialMediaData = [];
+    try {
+        const response = await fetch('data/socialMediaData.json'); 
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        
+        socialMediaData = data.map(item => new SocialMediaButtonData(
+            item.name,
+            item.iconSVGPath,
+            item.buttonText,
+            item.cssClass,
+            item.link
+        ));
+    } catch (error) {
+        console.error("Failed to load social media data:", error);
+        containerWrapper.innerHTML = '<p style="color: red; text-align: center;">Failed to load links. Please try again later.</p>';
+        return;
+    }
 
-            // 1. Render and append the Profile Card
-            container.innerHTML += renderProfileCard();
+    const hotLinks = socialMediaData.slice(0, 3);
+    const regularLinks = socialMediaData.slice(3);
 
-            // Transform raw JSON objects into SocialMediaButtonData instances
-            const socialMediaButtons = rawJsonData.map(item =>
-                new SocialMediaButtonData(item.name, item.iconSVGPath, item.buttonText, item.cssClass, item.link, item.viewBox, item.hotLink)
-            );
+    const isLive = false; 
 
-            // 2. Prepare hot and regular links data using the new instances
-            const hotLinksData = socialMediaButtons.filter(button => button.hotLink);
-            const regularLinksData = socialMediaButtons.filter(button => !button.hotLink);
+    const profileCardHtml = renderProfileCard();
+    const liveBannerHtml = renderLiveStatusBanner(isLive);
+    const linksSectionHtml = renderLinksSection(hotLinks, regularLinks, isLive);
 
-            // 3. Render hot and regular links sections
-            // These now correctly produce the HTML strings
-            const hotLinksHtml = renderHotLinksSection(hotLinksData);
-            const regularLinksHtml = renderRegularLinksSection(regularLinksData);
-
-            // 4. Render and append the main links section
-            // FIX: Pass the HTML strings directly to renderLinksSection
-            container.innerHTML += renderLinksSection(hotLinksHtml, regularLinksHtml, false);
-
-            // 5. Render and append the Live Status Banner (initially hidden)
-            container.innerHTML += renderLiveStatusBanner(false);
-        })
-        .catch(error => {
-            console.error("Failed to load social media links:", error);
-            const container = document.querySelector('.containerWrapper');
-            if (container) {
-                // Display a fallback message if data fails to load
-                container.innerHTML = "<p>Failed to load links. Please try again later.</p>";
-            }
-        });
+    containerWrapper.innerHTML = `
+        <div class="container stickerEffect">
+            <div class="profileCardWrapper">
+                ${profileCardHtml}
+            </div>
+            ${liveBannerHtml}
+            ${linksSectionHtml}
+        </div>
+    `;
 });
